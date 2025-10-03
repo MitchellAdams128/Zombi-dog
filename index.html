@@ -16,26 +16,47 @@
       --grid: rgba(215,0,0,0.08);
     }
 
-    * { box-sizing: border-box; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
     body {
       margin: 0;
-      font-family: "Consolas", monospace;
       background: var(--bg);
       color: var(--text);
+      font-family: "Consolas", monospace;
+      overflow: hidden; /* Prevent scrollbars during zoom */
+    }
+
+    /* Main wrapper that auto-scales */
+    .scale-wrapper {
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    /* Content grid */
+    .content {
+      width: 800px;   /* Base desktop width */
+      height: 600px;  /* Base desktop height */
       display: grid;
       grid-template-columns: 1fr 1fr;
       grid-template-rows: 1fr 1fr;
-      height: 100vh;
+      background: var(--bg);
+      border: 2px solid var(--accent);
+      box-shadow: 0 0 40px var(--glow);
     }
 
     .quadrant {
       border: 1px solid var(--grid);
       padding: 1rem;
       background: var(--panel);
+      overflow: hidden;
     }
 
     .quadrant img {
-      width: 110%;   /* 10% larger */
+      width: 110%;  /* 10% larger */
       height: auto;
       border: 3px solid var(--accent);
       box-shadow: 0 0 20px var(--glow);
@@ -45,16 +66,16 @@
       color: var(--accent);
       text-transform: uppercase;
       letter-spacing: 2px;
-      margin-top: 0;
+      margin: 0 0 .5rem 0;
     }
 
     h2 {
       color: var(--accent);
-      margin-top: 0;
+      margin: 0 0 .5rem 0;
     }
 
     .data-field {
-      margin: .5rem 0;
+      margin: .4rem 0;
       padding: .3rem;
       background: rgba(215,0,0,0.08);
       border-left: 3px solid var(--accent);
@@ -75,52 +96,56 @@
       from { opacity: 1; }
       to { opacity: 0.6; }
     }
-
-    /* Mobile friendly layout */
-    @media (max-width: 768px) {
-      body {
-        grid-template-columns: 1fr;
-        grid-template-rows: auto;
-        height: auto;
-      }
-
-      .quadrant {
-        padding: 1rem;
-      }
-
-      .quadrant img {
-        width: 100%; /* Prevent overflow on mobile */
-      }
-    }
   </style>
+
+  <script>
+    function scaleContent() {
+      const wrapper = document.querySelector('.scale-wrapper');
+      const content = document.querySelector('.content');
+
+      let scaleX = wrapper.clientWidth / content.offsetWidth;
+      let scaleY = wrapper.clientHeight / content.offsetHeight;
+      let scale = Math.min(scaleX, scaleY); // Keep aspect ratio
+
+      content.style.transform = `scale(${scale})`;
+      content.style.transformOrigin = "top left";
+    }
+
+    window.addEventListener('resize', scaleContent);
+    window.addEventListener('load', scaleContent);
+  </script>
 </head>
 
 <body>
-  <!-- Top-left Quadrant: Image -->
-  <div class="quadrant">
-    <img src="doberman-tvirus.jpg" alt="Infected Doberman">
-  </div>
+  <div class="scale-wrapper">
+    <div class="content">
+      <!-- Top-left Quadrant: Image -->
+      <div class="quadrant">
+        <img src="doberman-tvirus.jpg" alt="Infected Doberman">
+      </div>
 
-  <!-- Top-right Quadrant: Patient Data -->
-  <div class="quadrant">
-    <h1>Patient File: K9-045</h1>
-    <div class="data-field"><b>Species:</b> Doberman</div>
-    <div class="data-field"><b>Status:</b> Infected with T-Virus</div>
-    <div class="data-field"><b>Condition:</b> Severe necrosis, heightened aggression</div>
-    <div class="data-field"><b>Containment Level:</b> Alpha Threat</div>
-    <div class="warning">⚠️ Warning: Extremely Hostile ⚠️</div>
-  </div>
+      <!-- Top-right Quadrant: Patient Data -->
+      <div class="quadrant">
+        <h1>Patient File: K9-045</h1>
+        <div class="data-field"><b>Species:</b> Doberman</div>
+        <div class="data-field"><b>Status:</b> Infected with T-Virus</div>
+        <div class="data-field"><b>Condition:</b> Severe necrosis, heightened aggression</div>
+        <div class="data-field"><b>Containment Level:</b> Alpha Threat</div>
+        <div class="warning">⚠️ Warning: Extremely Hostile ⚠️</div>
+      </div>
 
-  <!-- Bottom-left Quadrant: Notes -->
-  <div class="quadrant">
-    <h2>Clinical Notes</h2>
-    <p>Subject displays rapid tissue decay and increased strength. Visual acuity enhanced 
-       in low-light environments. Aggression triggered by movement and scent of blood.</p>
-  </div>
+      <!-- Bottom-left Quadrant: Notes -->
+      <div class="quadrant">
+        <h2>Clinical Notes</h2>
+        <p>Subject displays rapid tissue decay and increased strength. Visual acuity enhanced 
+           in low-light environments. Aggression triggered by movement and scent of blood.</p>
+      </div>
 
-  <!-- Bottom-right Quadrant: Umbrella Branding -->
-  <div class="quadrant" style="display:flex;justify-content:center;align-items:center;">
-    <h1>Umbrella Corporation™</h1>
+      <!-- Bottom-right Quadrant: Umbrella Branding -->
+      <div class="quadrant" style="display:flex;justify-content:center;align-items:center;">
+        <h1>Umbrella Corporation™</h1>
+      </div>
+    </div>
   </div>
 </body>
 </html>
