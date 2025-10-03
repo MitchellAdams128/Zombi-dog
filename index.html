@@ -26,7 +26,6 @@
       grid-template-columns: 1fr 1fr;
       grid-template-rows: 1fr 1fr;
       height: 100vh;
-      overflow: hidden;
     }
 
     .quadrant {
@@ -36,7 +35,7 @@
     }
 
     .quadrant img {
-      width: 100%;
+      width: 110%;   /* 10% larger */
       height: auto;
       border: 3px solid var(--accent);
       box-shadow: 0 0 20px var(--glow);
@@ -46,6 +45,11 @@
       color: var(--accent);
       text-transform: uppercase;
       letter-spacing: 2px;
+      margin-top: 0;
+    }
+
+    h2 {
+      color: var(--accent);
       margin-top: 0;
     }
 
@@ -71,13 +75,30 @@
       from { opacity: 1; }
       to { opacity: 0.6; }
     }
+
+    /* Mobile friendly layout */
+    @media (max-width: 768px) {
+      body {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+        height: auto;
+      }
+
+      .quadrant {
+        padding: 1rem;
+      }
+
+      .quadrant img {
+        width: 100%; /* Prevent overflow on mobile */
+      }
+    }
   </style>
 </head>
 
 <body>
   <!-- Top-left Quadrant: Image -->
   <div class="quadrant">
-    <img src="dog.jpg" alt="Infected Doberman">
+    <img src="doberman-tvirus.jpg" alt="Infected Doberman">
   </div>
 
   <!-- Top-right Quadrant: Patient Data -->
