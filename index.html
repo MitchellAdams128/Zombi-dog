@@ -65,12 +65,37 @@
       gap: 1rem;
     }
 
-    .animal-info img {
+    /* Fade Image Container */
+    .fade-container {
+      position: relative;
       width: 250px;
       height: 200px;
-      object-fit: cover;
       border: 3px solid var(--accent);
       box-shadow: 0 0 15px var(--accent);
+      overflow: hidden;
+    }
+
+    .fade-container img {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      top: 0;
+      left: 0;
+      opacity: 0;
+      animation: fadeCycle 8s infinite;
+    }
+
+    .fade-container img:first-child {
+      animation-delay: 0s;
+    }
+    .fade-container img:last-child {
+      animation-delay: 4s;
+    }
+
+    @keyframes fadeCycle {
+      0%, 25% { opacity: 1; }
+      45%, 100% { opacity: 0; }
     }
 
     .details {
@@ -151,18 +176,20 @@
     </header>
 
     <div class="animal-info">
-      <!-- Animal Image -->
-      <img src="dog.jpg" alt="Infected Doberman">
+      <!-- Fading Images -->
+      <div class="fade-container">
+        <img src="dog.png" alt="Normal Doberman">
+        <img src="virusdog.png" alt="Infected Doberman">
+      </div>
 
       <!-- Animal Details -->
       <div class="details">
         <div class="label">File No:</div><div>A045-K9</div>
         <div class="label">Name:</div><div class="highlight">Cerberus</div>
-        <div class="label">Breed:</div><div>Doberman (Infected)</div>
-        <div class="label">Color:</div><div>Black & Red Rotting</div>
+        <div class="label">Breed:</div><div>Doberman</div>
+        <div class="label">Status:</div><div class="highlight">T-Virus Carrier</div>
         <div class="label">Age:</div><div>Unknown</div>
         <div class="label">Sex:</div><div>Male</div>
-        <div class="label">Status:</div><div class="highlight">T-Virus Carrier</div>
         <div class="label">Containment:</div><div>Alpha Threat</div>
         <div class="label">Tag ID:</div><div>98212605577948</div>
       </div>
