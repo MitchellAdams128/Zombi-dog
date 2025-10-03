@@ -3,141 +3,185 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Umbrella Corp // Infected Animal Profile</title>
-  <meta name="description" content="Resident Evil T-Virus Animal Patient File" />
+  <title>Umbrella Corp // Infected Animal Kennel Card</title>
+  <meta name="description" content="Resident Evil T-Virus Animal Kennel Card" />
 
   <style>
     :root {
       --bg: #0b0c10;
       --panel: #141619;
-      --text: #e3e3e3;
+      --text: #f1f1f1;
       --accent: #d70000;
-      --glow: rgba(215,0,0,.8);
-      --grid: rgba(215,0,0,0.15);
+      --warn: #ff4040;
+      --safe: #4caf50;
+      --note: #ffcc00;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      margin: 0;
       background: var(--bg);
-      color: var(--text);
       font-family: "Consolas", monospace;
+      color: var(--text);
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
-      overflow: hidden;
-    }
-
-    .container {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      grid-template-rows: 1fr 1fr;
-      width: 90vw;
-      height: 90vh;
-      border: 2px solid var(--accent);
-      box-shadow: 0 0 40px var(--glow);
-    }
-
-    .quadrant {
-      border: 1px solid var(--grid);
-      background: var(--panel);
+      min-height: 100vh;
       padding: 1rem;
-      overflow: auto;
     }
 
-    .quadrant img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
+    .kennel-card {
+      background: var(--panel);
       border: 3px solid var(--accent);
-      box-shadow: 0 0 20px var(--glow);
+      box-shadow: 0 0 25px var(--accent);
+      padding: 1rem;
+      max-width: 800px;
+      width: 100%;
     }
 
-    h1 {
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid var(--accent);
+      padding-bottom: .5rem;
+      margin-bottom: 1rem;
+    }
+
+    header h1 {
+      font-size: 1.4rem;
       color: var(--accent);
       text-transform: uppercase;
-      letter-spacing: 2px;
-      margin: 0 0 .5rem 0;
-      font-size: 1.2rem;
     }
 
-    h2 {
-      color: var(--accent);
-      margin: 0 0 .5rem 0;
+    .umbrella-logo {
+      font-weight: bold;
       font-size: 1rem;
+      color: var(--note);
     }
 
-    .data-field {
-      margin: .4rem 0;
-      padding: .3rem;
-      background: rgba(215,0,0,0.08);
-      border-left: 3px solid var(--accent);
-      font-size: .9rem;
+    .animal-info {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .animal-info img {
+      width: 250px;
+      height: 200px;
+      object-fit: cover;
+      border: 3px solid var(--accent);
+      box-shadow: 0 0 15px var(--accent);
+    }
+
+    .details {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: .3rem .8rem;
+    }
+
+    .label {
+      font-weight: bold;
+      color: var(--note);
+    }
+
+    .highlight {
+      color: var(--accent);
+      font-weight: bold;
     }
 
     .warning {
-      margin-top: 1rem;
-      padding: .5rem;
+      margin-top: .5rem;
+      padding: .4rem;
       background: #180000;
-      color: #ff5050;
-      border: 1px solid #ff505088;
+      border: 1px solid var(--warn);
+      color: var(--warn);
       font-weight: bold;
       text-align: center;
-      font-size: .95rem;
       animation: flicker 1.5s infinite alternate;
     }
 
     @keyframes flicker {
       from { opacity: 1; }
-      to { opacity: 0.6; }
+      to { opacity: .6; }
     }
 
-    /* Responsive scaling for small screens */
-    @media (max-width: 768px) {
-      .container {
-        width: 100vw;
-        height: 100vh;
-      }
-      h1 { font-size: 1rem; }
-      h2 { font-size: .9rem; }
-      .data-field, .warning { font-size: .8rem; }
+    .footer {
+      margin-top: 1rem;
+      border-top: 2px solid var(--accent);
+      padding-top: .5rem;
+      display: flex;
+      justify-content: space-between;
+      font-size: .85rem;
+      color: #bbb;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: .3rem .6rem;
+      margin-top: .5rem;
+      font-weight: bold;
+      font-size: .85rem;
+      border: 2px solid;
+      border-radius: 4px;
+    }
+
+    .ok {
+      border-color: var(--safe);
+      color: var(--safe);
+    }
+
+    .adopt {
+      border-color: var(--note);
+      color: var(--note);
+    }
+
+    .rescue {
+      border-color: var(--warn);
+      color: var(--warn);
     }
   </style>
 </head>
 
 <body>
-  <div class="container">
-    <!-- Top-left Quadrant: Image -->
-    <div class="quadrant">
+  <div class="kennel-card">
+    <header>
+      <h1>Umbrella Corporation // Biohazard Kennel Card</h1>
+      <div class="umbrella-logo">☣ T-Virus Containment</div>
+    </header>
+
+    <div class="animal-info">
+      <!-- Animal Image -->
       <img src="doberman-tvirus.jpg" alt="Infected Doberman">
+
+      <!-- Animal Details -->
+      <div class="details">
+        <div class="label">File No:</div><div>A045-K9</div>
+        <div class="label">Name:</div><div class="highlight">Cerberus</div>
+        <div class="label">Breed:</div><div>Doberman (Infected)</div>
+        <div class="label">Color:</div><div>Black & Red Rotting</div>
+        <div class="label">Age:</div><div>Unknown</div>
+        <div class="label">Sex:</div><div>Male</div>
+        <div class="label">Status:</div><div class="highlight">T-Virus Carrier</div>
+        <div class="label">Containment:</div><div>Alpha Threat</div>
+        <div class="label">Tag ID:</div><div>98212605577948</div>
+      </div>
     </div>
 
-    <!-- Top-right Quadrant: Patient Data -->
-    <div class="quadrant">
-      <h1>Patient File: K9-045</h1>
-      <div class="data-field"><b>Species:</b> Doberman</div>
-      <div class="data-field"><b>Status:</b> Infected with T-Virus</div>
-      <div class="data-field"><b>Condition:</b> Severe necrosis, heightened aggression</div>
-      <div class="data-field"><b>Containment Level:</b> Alpha Threat</div>
-      <div class="warning">⚠️ Warning: Extremely Hostile ⚠️</div>
-    </div>
+    <!-- Warning -->
+    <div class="warning">⚠️ EXTREMELY HOSTILE – DO NOT APPROACH ⚠️</div>
 
-    <!-- Bottom-left Quadrant: Notes -->
-    <div class="quadrant">
-      <h2>Clinical Notes</h2>
-      <p>Subject displays rapid tissue decay and increased strength. 
-         Visual acuity enhanced in low-light environments. 
-         Aggression triggered by movement and scent of blood.</p>
-    </div>
-
-    <!-- Bottom-right Quadrant: Umbrella Branding -->
-    <div class="quadrant" style="display:flex;justify-content:center;align-items:center;flex-direction:column;">
-      <h1>Umbrella Corporation™</h1>
-      <p style="color:#aaa; font-size:.8rem; text-align:center; max-width:80%;">
-        Property of Umbrella Corporation. Unauthorized access will result in immediate termination.
-      </p>
+    <!-- Footer Section -->
+    <div class="footer">
+      <div>
+        <div><b>Intake Date:</b> 10/03/25</div>
+        <div><b>Location:</b> Hive Lab Facility, Raccoon City</div>
+      </div>
+      <div>
+        <div class="badge ok">QUARANTINED</div>
+        <div class="badge adopt">BIOHAZARD</div>
+        <div class="badge rescue">NEEDS TERMINATION</div>
+      </div>
     </div>
   </div>
 </body>
