@@ -13,7 +13,7 @@
       --text: #e3e3e3;
       --accent: #d70000;
       --glow: rgba(215,0,0,.8);
-      --grid: rgba(215,0,0,0.08);
+      --grid: rgba(215,0,0,0.15);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -23,41 +23,34 @@
       background: var(--bg);
       color: var(--text);
       font-family: "Consolas", monospace;
-      overflow: hidden; /* Prevent scrollbars during zoom */
-    }
-
-    /* Main wrapper that auto-scales */
-    .scale-wrapper {
-      width: 100vw;
-      height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
+      height: 100vh;
       overflow: hidden;
     }
 
-    /* Content grid */
-    .content {
-      width: 800px;   /* Base desktop width */
-      height: 600px;  /* Base desktop height */
+    .container {
       display: grid;
       grid-template-columns: 1fr 1fr;
       grid-template-rows: 1fr 1fr;
-      background: var(--bg);
+      width: 90vw;
+      height: 90vh;
       border: 2px solid var(--accent);
       box-shadow: 0 0 40px var(--glow);
     }
 
     .quadrant {
       border: 1px solid var(--grid);
-      padding: 1rem;
       background: var(--panel);
-      overflow: hidden;
+      padding: 1rem;
+      overflow: auto;
     }
 
     .quadrant img {
-      width: 110%;  /* 10% larger */
-      height: auto;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
       border: 3px solid var(--accent);
       box-shadow: 0 0 20px var(--glow);
     }
@@ -67,11 +60,13 @@
       text-transform: uppercase;
       letter-spacing: 2px;
       margin: 0 0 .5rem 0;
+      font-size: 1.2rem;
     }
 
     h2 {
       color: var(--accent);
       margin: 0 0 .5rem 0;
+      font-size: 1rem;
     }
 
     .data-field {
@@ -79,6 +74,7 @@
       padding: .3rem;
       background: rgba(215,0,0,0.08);
       border-left: 3px solid var(--accent);
+      font-size: .9rem;
     }
 
     .warning {
@@ -89,6 +85,7 @@
       border: 1px solid #ff505088;
       font-weight: bold;
       text-align: center;
+      font-size: .95rem;
       animation: flicker 1.5s infinite alternate;
     }
 
@@ -96,55 +93,51 @@
       from { opacity: 1; }
       to { opacity: 0.6; }
     }
-  </style>
 
-  <script>
-    function scaleContent() {
-      const wrapper = document.querySelector('.scale-wrapper');
-      const content = document.querySelector('.content');
-
-      let scaleX = wrapper.clientWidth / content.offsetWidth;
-      let scaleY = wrapper.clientHeight / content.offsetHeight;
-      let scale = Math.min(scaleX, scaleY); // Keep aspect ratio
-
-      content.style.transform = `scale(${scale})`;
-      content.style.transformOrigin = "top left";
+    /* Responsive scaling for small screens */
+    @media (max-width: 768px) {
+      .container {
+        width: 100vw;
+        height: 100vh;
+      }
+      h1 { font-size: 1rem; }
+      h2 { font-size: .9rem; }
+      .data-field, .warning { font-size: .8rem; }
     }
-
-    window.addEventListener('resize', scaleContent);
-    window.addEventListener('load', scaleContent);
-  </script>
+  </style>
 </head>
 
 <body>
-  <div class="scale-wrapper">
-    <div class="content">
-      <!-- Top-left Quadrant: Image -->
-      <div class="quadrant">
-        <img src="doberman-tvirus.jpg" alt="Infected Doberman">
-      </div>
+  <div class="container">
+    <!-- Top-left Quadrant: Image -->
+    <div class="quadrant">
+      <img src="doberman-tvirus.jpg" alt="Infected Doberman">
+    </div>
 
-      <!-- Top-right Quadrant: Patient Data -->
-      <div class="quadrant">
-        <h1>Patient File: K9-045</h1>
-        <div class="data-field"><b>Species:</b> Doberman</div>
-        <div class="data-field"><b>Status:</b> Infected with T-Virus</div>
-        <div class="data-field"><b>Condition:</b> Severe necrosis, heightened aggression</div>
-        <div class="data-field"><b>Containment Level:</b> Alpha Threat</div>
-        <div class="warning">⚠️ Warning: Extremely Hostile ⚠️</div>
-      </div>
+    <!-- Top-right Quadrant: Patient Data -->
+    <div class="quadrant">
+      <h1>Patient File: K9-045</h1>
+      <div class="data-field"><b>Species:</b> Doberman</div>
+      <div class="data-field"><b>Status:</b> Infected with T-Virus</div>
+      <div class="data-field"><b>Condition:</b> Severe necrosis, heightened aggression</div>
+      <div class="data-field"><b>Containment Level:</b> Alpha Threat</div>
+      <div class="warning">⚠️ Warning: Extremely Hostile ⚠️</div>
+    </div>
 
-      <!-- Bottom-left Quadrant: Notes -->
-      <div class="quadrant">
-        <h2>Clinical Notes</h2>
-        <p>Subject displays rapid tissue decay and increased strength. Visual acuity enhanced 
-           in low-light environments. Aggression triggered by movement and scent of blood.</p>
-      </div>
+    <!-- Bottom-left Quadrant: Notes -->
+    <div class="quadrant">
+      <h2>Clinical Notes</h2>
+      <p>Subject displays rapid tissue decay and increased strength. 
+         Visual acuity enhanced in low-light environments. 
+         Aggression triggered by movement and scent of blood.</p>
+    </div>
 
-      <!-- Bottom-right Quadrant: Umbrella Branding -->
-      <div class="quadrant" style="display:flex;justify-content:center;align-items:center;">
-        <h1>Umbrella Corporation™</h1>
-      </div>
+    <!-- Bottom-right Quadrant: Umbrella Branding -->
+    <div class="quadrant" style="display:flex;justify-content:center;align-items:center;flex-direction:column;">
+      <h1>Umbrella Corporation™</h1>
+      <p style="color:#aaa; font-size:.8rem; text-align:center; max-width:80%;">
+        Property of Umbrella Corporation. Unauthorized access will result in immediate termination.
+      </p>
     </div>
   </div>
 </body>
